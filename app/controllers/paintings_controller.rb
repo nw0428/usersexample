@@ -1,6 +1,7 @@
 class PaintingsController < ApplicationController
   before_action :authenticate_owner!, except: [:index]
   before_action :set_painting, only: [:show, :edit, :update, :destroy]
+  before_action :check_correct_owner, only: [:edit, :update, :destroy]
 
   # GET /paintings
   # GET /paintings.json
@@ -26,6 +27,7 @@ class PaintingsController < ApplicationController
   # POST /paintings.json
   def create
     @painting = Painting.new(painting_params)
+    @painting.owner = current_owner
 
     respond_to do |format|
       if @painting.save
@@ -71,5 +73,11 @@ class PaintingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def painting_params
       params.require(:painting).permit(:title, :artist, :height_cm, :width_cm, :year)
+    end
+
+    def check_correct_owner
+      unless current_owner && @painting.user == current_owner
+        redirect_to paintings_url, notice: 'You can\'t edit that painting'
+      end
     end
 end
