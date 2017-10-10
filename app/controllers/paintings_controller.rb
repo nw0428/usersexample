@@ -1,4 +1,5 @@
 class PaintingsController < ApplicationController
+  before_action :authenticate_owner!, except: [:index]
   before_action :set_painting, only: [:show, :edit, :update, :destroy]
 
   # GET /paintings
