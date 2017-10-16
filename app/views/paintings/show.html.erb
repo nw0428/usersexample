@@ -25,5 +25,22 @@
   <%= @painting.year %>
 </p>
 
+<p>
+  <%= link_to "Add a Comment", new_painting_comment_path(painting_id: @painting) %>
+</p>
+
+<% for comment in @comments do %>
+  <table>
+    <tr>
+      <td>
+        <%= comment.title %>
+      </td>
+      <td>
+        <%= comment.comment %>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
 <%= link_to 'Edit', edit_painting_path(@painting) %> |
 <%= link_to 'Back', paintings_path %>

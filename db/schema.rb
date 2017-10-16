@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010172120) do
+ActiveRecord::Schema.define(version: 20171012235203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.string "title"
+    t.string "comment"
+    t.bigint "painting_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["painting_id"], name: "index_comments_on_painting_id"
+  end
 
   create_table "owners", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -44,5 +53,6 @@ ActiveRecord::Schema.define(version: 20171010172120) do
     t.index ["owner_id"], name: "index_paintings_on_owner_id"
   end
 
+  add_foreign_key "comments", "paintings"
   add_foreign_key "paintings", "owners"
 end
