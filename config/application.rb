@@ -12,9 +12,9 @@ module Usersexample
     config.load_defaults 5.1
 
     config.generators do |g|
-      g.system_tests :rspec
-      g.test_framework :rspec
-      g.integration_framework :rspec
+      g.system_tests :rspec2
+      g.test_framework :rspec2
+      g.integration_framework :rspec2
     end
 
     # Settings in config/environments/* take precedence over those specified here.
