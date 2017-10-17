@@ -12,6 +12,7 @@ class PaintingsController < ApplicationController
   # GET /paintings/1
   # GET /paintings/1.json
   def show
+    @comments = Comment.where(painting: @painting)
   end
 
   # GET /paintings/new
@@ -76,7 +77,7 @@ class PaintingsController < ApplicationController
     end
 
     def check_correct_owner
-      unless current_owner && @painting.user == current_owner
+      unless current_owner && @painting.owner == current_owner
         redirect_to paintings_url, notice: 'You can\'t edit that painting'
       end
     end
